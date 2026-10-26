@@ -1,7 +1,7 @@
 # Digital Store
+🔗 **Site no ar:** https://digital-store-five-jade.vercel.app
 
-Projeto final de Front-end (Geração Tech) — loja virtual desenvolvida em **React**, seguindo a
-[documentação do Digital Store](https://github.com/digitalcollegebr/projeto-digital-store) e o design do Figma.
+Projeto final de Front-end (Geração Tech) — loja virtual 
 
 ## Equipe
 
