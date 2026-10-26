@@ -1,0 +1,36 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding-top: 80px;
+  padding-bottom: 120px;
+}
+
+.home__collections {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home__collections img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  transition: transform 0.3s;
+}
+
+.home__collections img:hover {
+  transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  .home {
+    gap: 48px;
+    padding-top: 48px;
+    padding-bottom: 64px;
+  }
+
+  .home__collections {
+    grid-template-columns: 1fr;
+  }
+}
