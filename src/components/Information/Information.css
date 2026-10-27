@@ -1,24 +1,31 @@
 .information__title {
   font-size: 18px;
   font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0;
   color: var(--white);
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .information__list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  max-width: 231px;
 }
 
 .information__list a {
+  display: block;
   font-size: 16px;
+  line-height: 38px;
+  letter-spacing: 0;
   color: var(--white);
-  opacity: 0.9;
 }
 
 .information__list a:hover {
-  opacity: 1;
   text-decoration: underline;
+}
+
+/* coluna de contato usa linhas mais compactas, como no Figma */
+.information--compact .information__list a {
+  line-height: 26px;
+  margin-bottom: 14px;
 }

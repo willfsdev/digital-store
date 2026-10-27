@@ -1,62 +1,81 @@
+/* Medidas do Figma: altura 192px, sombra suave */
 .header {
   background: var(--white);
-  padding-top: 28px;
+  box-shadow: 0 10px 30px rgba(141, 114, 32, 0.05);
+  position: relative;
+  z-index: 2;
 }
 
 .header__top {
   display: flex;
   align-items: center;
-  gap: 40px;
+  padding-top: 34px;
+  height: 94px;
+}
+
+.header__top > a {
+  flex-shrink: 0;
 }
 
 .header__search {
-  flex: 1;
   display: flex;
   align-items: center;
+  width: 559px;
+  max-width: 100%;
   height: 60px;
-  background: var(--light-gray-3);
+  margin-left: 32px;
+  padding: 0 16px 0 24px;
   border-radius: 8px;
-  padding: 0 20px;
+  background: rgba(71, 71, 71, 0.04);
 }
 
 .header__search input {
   flex: 1;
+  min-width: 0;
   border: 0;
   background: transparent;
   font: inherit;
   font-size: 16px;
-  color: var(--dark-gray-2);
+  line-height: 28px;
+  letter-spacing: 0.75px;
+  color: var(--dark-gray);
   outline: none;
 }
 
 .header__search input::placeholder {
-  color: var(--light-gray);
+  color: var(--dark-gray-3);
+  opacity: 0.6;
 }
 
 .header__search button {
+  display: flex;
   border: 0;
   background: transparent;
-  color: var(--light-gray);
-  display: flex;
-  padding: 4px;
+  opacity: 0.5;
+  transition: opacity 0.2s;
 }
 
 .header__search button:hover {
-  color: var(--primary);
+  opacity: 1;
 }
 
 .header__actions {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 33px;
+  margin-left: 48px;
 }
 
 .header__signup {
   font-size: 16px;
+  line-height: 28px;
   color: var(--dark-gray-2);
   text-decoration: underline;
-  text-decoration-color: var(--dark-gray-2);
   white-space: nowrap;
+}
+
+.header__signup:hover {
+  color: var(--primary);
 }
 
 .header__login {
@@ -67,9 +86,10 @@
   height: 40px;
   border-radius: 4px;
   background: var(--primary);
-  color: var(--white);
+  color: var(--light-gray-3);
   font-size: 14px;
   font-weight: 700;
+  line-height: 22px;
   transition: background 0.2s;
 }
 
@@ -80,41 +100,39 @@
 .header__cart {
   position: relative;
   display: flex;
-  margin-left: 20px;
-}
-
-.header__cart img {
-  width: 24px;
-  height: 24px;
+  margin-left: auto;
+  margin-right: 9px;
 }
 
 .header__cart-badge {
   position: absolute;
-  top: -8px;
-  right: -10px;
+  top: -5px;
+  right: -9px;
   width: 17px;
   height: 17px;
   border-radius: 50%;
   background: var(--error);
   color: var(--white);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 17px;
+  letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .header__nav {
   display: flex;
   gap: 32px;
-  padding: 40px 0 20px;
+  height: 98px;
+  padding-top: 40px;
 }
 
 .header__link {
   position: relative;
+  height: 28px;
   font-size: 16px;
+  line-height: 28px;
   color: var(--dark-gray-2);
-  padding-bottom: 6px;
   transition: color 0.2s;
 }
 
@@ -131,31 +149,51 @@
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 27px;
   width: 100%;
   height: 2px;
+  border-radius: 2px;
   background: var(--primary);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+  .header__search {
+    flex: 1;
+    width: auto;
+  }
+
+  .header__actions {
+    margin-left: 32px;
+    gap: 24px;
+  }
+
+  .header__cart {
+    margin-left: 32px;
+  }
+}
+
+@media (max-width: 900px) {
   .header__top {
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
+    height: auto;
+    padding-top: 24px;
+    row-gap: 16px;
   }
 
   .header__search {
     order: 3;
     flex-basis: 100%;
+    margin-left: 0;
     height: 48px;
   }
 
   .header__actions {
-    gap: 16px;
+    margin-left: auto;
   }
 
   .header__nav {
-    padding-top: 24px;
+    height: auto;
+    padding: 24px 0 16px;
     gap: 20px;
     overflow-x: auto;
   }
@@ -166,12 +204,20 @@
 }
 
 @media (max-width: 600px) {
-  .header .header__top > a img {
-    width: 160px;
+  .header__top > a img {
+    width: 150px;
     height: auto;
   }
 
   .header__signup {
     display: none;
+  }
+
+  .header__actions {
+    gap: 16px;
+  }
+
+  .header__cart {
+    margin-left: 20px;
   }
 }

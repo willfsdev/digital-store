@@ -2,13 +2,13 @@ import ProductCard from '../ProductCard';
 import './ProductListing.css';
 
 // 4.3 - Listagem: recebe "products" e renderiza um <ProductCard /> para cada item
-const ProductListing = ({ products = [], columns = 4 }) => {
+const ProductListing = ({ products = [], columns = 4, columnGap = 24 }) => {
   if (products.length === 0) {
     return <p className="product-listing__empty">Nenhum produto encontrado.</p>;
   }
 
   return (
-    <div className="product-listing" style={{ '--columns': columns }}>
+    <div className="product-listing" style={{ '--columns': columns, '--column-gap': `${columnGap}px` }}>
       {products.map((product, index) => (
         <ProductCard
           key={product.id ?? index}

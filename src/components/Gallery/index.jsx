@@ -3,7 +3,14 @@ import arrowLeft from '../../assets/arrow-left.svg';
 import arrowRight from '../../assets/arrow-right.svg';
 import './Gallery.css';
 
-// 4.4 - Galeria de imagens (slide com setas e miniaturas opcionais)
+/*
+  4.4 - Galeria de imagens (slide com setas e miniaturas opcionais)
+
+  Cada item de "images" segue o padrão { src } da documentação e pode ter,
+  opcionalmente:
+  - background: cor de fundo do slide (usada na página de produto)
+  - content: conteúdo extra renderizado sobre o slide (usado no banner da home)
+*/
 const Gallery = ({
   images = [],
   className = '',
@@ -35,18 +42,22 @@ const Gallery = ({
           borderRadius: radius,
         }}
       >
-        <div
-          className="gallery__track"
-          style={{ transform: `translateX(-${current * 100}%)` }}
-        >
+        <div className="gallery__track" style={{ transform: `translateX(-${current * 100}%)` }}>
           {images.map((image, index) => (
-            <img
-              key={image.src}
-              src={image.src}
-              alt={`Imagem ${index + 1}`}
-              className="gallery__image"
+            <div
+              key={`${image.src}-${index}`}
+              className={`gallery__item ${image.content ? 'gallery__item--custom' : ''}`}
+              style={{ background: image.background }}
               aria-hidden={index !== current}
-            />
+            >
+              {image.content ?? (
+                <img
+                  src={image.src}
+                  alt={`Imagem ${index + 1}`}
+                  className={image.background ? 'gallery__image--contain' : 'gallery__image'}
+                />
+              )}
+            </div>
           ))}
         </div>
 
@@ -74,11 +85,11 @@ const Gallery = ({
           <div className="gallery__dots">
             {images.map((image, index) => (
               <button
-                key={image.src}
+                key={`dot-${index}`}
                 type="button"
                 className={`gallery__dot ${index === current ? 'gallery__dot--active' : ''}`}
                 onClick={() => setCurrent(index)}
-                aria-label={`Ir para imagem ${index + 1}`}
+                aria-label={`Ir para o slide ${index + 1}`}
               />
             ))}
           </div>
@@ -89,14 +100,14 @@ const Gallery = ({
         <div className="gallery__thumbs">
           {images.map((image, index) => (
             <button
-              key={image.src}
+              key={`thumb-${index}`}
               type="button"
               className={`gallery__thumb ${index === current ? 'gallery__thumb--active' : ''}`}
-              style={{ borderRadius: radius }}
+              style={{ borderRadius: radius, background: image.background }}
               onClick={() => setCurrent(index)}
               aria-label={`Ver imagem ${index + 1}`}
             >
-              <img src={image.src} alt="" style={{ borderRadius: radius }} />
+              <img src={image.src} alt="" />
             </button>
           ))}
         </div>

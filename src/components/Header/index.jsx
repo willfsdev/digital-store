@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import Logo from '../Logo';
-import cartIcon from '../../assets/mini-cart.svg';
 import './Header.css';
 
 const navLinks = [
@@ -10,6 +9,28 @@ const navLinks = [
   { text: 'Categorias', to: '/categorias' },
   { text: 'Meus Pedidos', to: '/meus-pedidos' },
 ];
+
+const SearchIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="11.2" cy="11.2" r="8" stroke="#474747" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M16.8 17.2 20 20.4" stroke="#474747" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+const CartIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M2.75 3.25 4.83 3.61l.96 11.48a1.8 1.8 0 0 0 1.8 1.65h10.91a1.8 1.8 0 0 0 1.78-1.54l.95-6.56a1.34 1.34 0 0 0-1.33-1.53H5.17"
+      stroke="#C92071"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path d="M14.13 10.8h2.77" stroke="#C92071" strokeWidth="1.5" strokeLinecap="round" />
+    <circle cx="7.15" cy="20.2" r="0.75" stroke="#C92071" strokeWidth="1.5" />
+    <circle cx="18.4" cy="20.2" r="0.75" stroke="#C92071" strokeWidth="1.5" />
+  </svg>
+);
 
 const Header = () => {
   const navigate = useNavigate();
@@ -39,10 +60,7 @@ const Header = () => {
               aria-label="Pesquisar produto"
             />
             <button type="submit" aria-label="Buscar">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
-                <path d="M20 20l-4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
+              <SearchIcon />
             </button>
           </form>
 
@@ -54,13 +72,13 @@ const Header = () => {
             <Link to="/login" className="header__login">
               Entrar
             </Link>
-
-            {/* 3.1.4 - Carrinho (somente ícone, sem ação) */}
-            <span className="header__cart" aria-label="Carrinho de compras">
-              <img src={cartIcon} alt="" />
-              <span className="header__cart-badge">2</span>
-            </span>
           </div>
+
+          {/* 3.1.4 - Carrinho (somente ícone, sem ação) */}
+          <span className="header__cart" aria-label="Carrinho de compras">
+            <CartIcon />
+            <span className="header__cart-badge">2</span>
+          </span>
         </div>
 
         {/* 3.1.5 - Navegação principal */}
@@ -71,8 +89,10 @@ const Header = () => {
               to={link.to}
               end={link.to === '/'}
               className={({ isActive }) =>
-                // "/products" (destino da busca) também marca o link Produtos
-                isActive || (link.to === '/produtos' && pathname === '/products')
+                // "/products" (destino da busca) e "/produto/:id" também marcam "Produtos"
+                isActive ||
+                (link.to === '/produtos' &&
+                  (pathname === '/products' || pathname.startsWith('/produto/')))
                   ? 'header__link header__link--active'
                   : 'header__link'
               }

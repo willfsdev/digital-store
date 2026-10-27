@@ -1,7 +1,9 @@
+/* Home/Produto: 4 colunas com 24px entre elas (como no Figma) */
 .product-listing {
   display: grid;
   grid-template-columns: repeat(var(--columns, 4), minmax(0, 1fr));
-  gap: 40px 24px;
+  column-gap: var(--column-gap, 24px);
+  row-gap: 40px;
 }
 
 .product-listing .product-card {
@@ -23,6 +25,7 @@
 @media (max-width: 768px) {
   .product-listing {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 16px;
+    column-gap: 16px;
+    row-gap: 28px;
   }
 }

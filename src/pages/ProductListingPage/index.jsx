@@ -7,6 +7,7 @@ import FilterGroup from '../../components/FilterGroup';
 import { products } from '../../data/products';
 import './ProductListingPage.css';
 
+// Grupos de filtro do Figma
 const filterGroups = [
   {
     key: 'brand',
@@ -14,17 +15,28 @@ const filterGroups = [
     inputType: 'checkbox',
     options: [
       { text: 'Adidas' },
-      { text: 'Calvin Klein' },
+      { text: 'Balenciaga' },
       { text: 'K-Swiss' },
       { text: 'Nike' },
       { text: 'Puma' },
     ],
   },
   {
+    key: 'style',
+    title: 'Categoria',
+    inputType: 'checkbox',
+    options: [
+      { text: 'Esporte e lazer' },
+      { text: 'Casual' },
+      { text: 'Utilitário' },
+      { text: 'Corrida' },
+    ],
+  },
+  {
     key: 'gender',
     title: 'Gênero',
     inputType: 'checkbox',
-    options: [{ text: 'Masculino' }, { text: 'Feminino' }, { text: 'Unissex' }],
+    options: [{ text: 'Masculino' }, { text: 'Feminino' }, { text: 'Unisex' }],
   },
   {
     key: 'condition',
@@ -34,7 +46,7 @@ const filterGroups = [
   },
 ];
 
-const emptyFilters = { brand: [], gender: [], condition: [] };
+const emptyFilters = { brand: [], style: [], gender: [], condition: [] };
 
 const getFinalPrice = (product) => product.priceDiscount ?? product.price;
 
@@ -43,7 +55,7 @@ const ProductListingPage = () => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get('filter') ?? '';
 
-  const [order, setOrder] = useState('menor');
+  const [order, setOrder] = useState('relevantes');
   const [filters, setFilters] = useState(emptyFilters);
 
   const handleFilterChange = (group, inputType) => (value, checked) => {
@@ -61,42 +73,57 @@ const ProductListingPage = () => {
     const term = search.toLowerCase();
 
     const result = products.filter((product) => {
-      const matchesSearch = !term || product.name.toLowerCase().includes(term);
+      const matchesSearch =
+        !term ||
+        product.name.toLowerCase().includes(term) ||
+        product.category.toLowerCase().includes(term);
       const matchesGroups = Object.entries(filters).every(
         ([key, values]) => values.length === 0 || values.includes(product[key])
       );
       return matchesSearch && matchesGroups;
     });
 
-    return [...result].sort((a, b) =>
-      order === 'menor'
-        ? getFinalPrice(a) - getFinalPrice(b)
-        : getFinalPrice(b) - getFinalPrice(a)
-    );
+    if (order === 'menor') return [...result].sort((a, b) => getFinalPrice(a) - getFinalPrice(b));
+    if (order === 'maior') return [...result].sort((a, b) => getFinalPrice(b) - getFinalPrice(a));
+    return result;
   }, [search, filters, order]);
 
   const hasActiveFilters = Object.values(filters).some((values) => values.length > 0);
-
   const total = filteredProducts.length;
-  const title = search
-    ? `Resultados para "${search}" - ${total} ${total === 1 ? 'produto' : 'produtos'}`
-    : `${total} ${total === 1 ? 'produto encontrado' : 'produtos encontrados'}`;
+  const totalText = `${total} ${total === 1 ? 'produto' : 'produtos'}`;
 
   return (
     <Layout>
       <div className="container listing-page">
-        <aside className="listing-page__sidebar">
-          {/* 6.1 - Ordenar por */}
+        {/* Topo: total de resultados + 6.1 Ordenar por */}
+        <div className="listing-page__top">
+          <p className="listing-page__results-text">
+            {search ? (
+              <>
+                <strong>Resultados para “{search}”</strong> - {totalText}
+              </>
+            ) : (
+              <>
+                <strong>Todos os produtos</strong> - {totalText}
+              </>
+            )}
+          </p>
+
           <label className="listing-page__order">
-            <span>Ordenar por</span>
+            <span className="listing-page__order-label">
+              <strong>Ordenar por:</strong>
+            </span>
             <select value={order} onChange={(e) => setOrder(e.target.value)}>
-              <option value="menor">Menor preço</option>
-              <option value="maior">Maior preço</option>
+              <option value="relevantes">mais relevantes</option>
+              <option value="menor">menor preço</option>
+              <option value="maior">maior preço</option>
             </select>
           </label>
+        </div>
 
+        <div className="listing-page__body">
           {/* 6.2 - Filtrar por */}
-          <div className="listing-page__filters">
+          <aside className="listing-page__filters">
             <div className="listing-page__filters-header">
               <h2>Filtrar por</h2>
               {hasActiveFilters && (
@@ -117,13 +144,13 @@ const ProductListingPage = () => {
                 onChange={handleFilterChange(group.key, group.inputType)}
               />
             ))}
-          </div>
-        </aside>
+          </aside>
 
-        {/* 6.3 - Listagem de produtos */}
-        <Section title={title} titleAlign="left" className="listing-page__results">
-          <ProductListing products={filteredProducts} columns={3} />
-        </Section>
+          {/* 6.3 - Listagem de produtos (o título mostra o total encontrado) */}
+          <Section title={totalText} titleAlign="left" className="listing-page__results">
+            <ProductListing products={filteredProducts} columns={3} columnGap={14} />
+          </Section>
+        </div>
       </div>
     </Layout>
   );

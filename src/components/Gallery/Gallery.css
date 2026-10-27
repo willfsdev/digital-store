@@ -17,22 +17,40 @@
   transition: transform 0.5s ease;
 }
 
-.gallery__image {
+.gallery__item {
+  position: relative;
   flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* produto recortado sobre fundo colorido (página de produto) */
+.gallery__image--contain {
+  width: 71%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* setas simples, como no Figma */
 .gallery__arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
   border: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,32 +58,33 @@
 }
 
 .gallery__arrow:hover:not(:disabled) {
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .gallery__arrow:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 
 .gallery__arrow img {
-  width: 24px;
-  height: 24px;
+  width: 11px;
+  height: 20px;
 }
 
 .gallery__arrow--left {
-  left: 24px;
+  left: 8px;
 }
 
 .gallery__arrow--right {
-  right: 24px;
+  right: 8px;
 }
 
 .gallery__dots {
   position: absolute;
-  bottom: 24px;
+  bottom: 59px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
   display: flex;
   gap: 10px;
 }
@@ -85,30 +104,34 @@
 
 .gallery__thumbs {
   display: flex;
-  gap: 12px;
+  gap: 28px;
   margin-top: 20px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding: 2px;
 }
 
 .gallery__thumb {
   flex: 0 0 117px;
   width: 117px;
   height: 95px;
-  padding: 0;
+  padding: 0 16px;
   border: 2px solid transparent;
   background: var(--light-gray-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .gallery__thumb img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 }
 
 .gallery__thumb--active {
   border-color: var(--primary);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 1024px) {
@@ -116,25 +139,21 @@
     height: auto;
     aspect-ratio: var(--gallery-ratio, 16 / 9);
   }
+
+  .gallery__thumbs {
+    gap: 12px;
+  }
 }
 
 @media (max-width: 600px) {
-  .gallery__arrow {
-    width: 36px;
-    height: 36px;
-  }
-
-  .gallery__arrow--left {
-    left: 8px;
-  }
-
-  .gallery__arrow--right {
-    right: 8px;
+  .gallery__dots {
+    bottom: 16px;
   }
 
   .gallery__thumb {
     flex-basis: 80px;
     width: 80px;
     height: 65px;
+    padding: 0 8px;
   }
 }

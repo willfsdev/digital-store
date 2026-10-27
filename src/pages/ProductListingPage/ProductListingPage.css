@@ -1,73 +1,113 @@
 .listing-page {
-  display: flex;
-  align-items: flex-start;
-  gap: 28px;
   padding-top: 40px;
   padding-bottom: 120px;
 }
 
-.listing-page__sidebar {
-  flex: 0 0 308px;
-  width: 308px;
+/* Linha superior do Figma: resultados à esquerda, "Ordenar por" (332 x 60) à direita */
+.listing-page__top {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 24px;
+  margin-bottom: 40px;
+}
+
+.listing-page__results-text {
+  font-size: 16px;
+  line-height: 28px;
+  color: var(--dark-gray-2);
 }
 
 .listing-page__order {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 16px;
-  color: var(--dark-gray-2);
-}
-
-.listing-page__order select {
-  width: 308px;
-  max-width: 100%;
+  align-items: center;
+  width: 332px;
   height: 60px;
   padding: 0 16px;
   border: 1px solid var(--dark-gray-2);
-  border-radius: 8px;
-  background: var(--white);
-  color: var(--dark-gray-2);
-  font: inherit;
+  border-radius: 4px;
   font-size: 16px;
+  line-height: 28px;
+  color: var(--dark-gray-2);
   cursor: pointer;
 }
 
+.listing-page__order-label {
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+.listing-page__order select {
+  flex: 1;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  letter-spacing: 0.75px;
+  color: var(--dark-gray-2);
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 24px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* seta do select (chevron) */
+.listing-page__order::after {
+  content: '';
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--dark-gray-2);
+  border-bottom: 1.5px solid var(--dark-gray-2);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.listing-page__body {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+/* Card de filtros: 308px, fundo branco, padding 30px */
 .listing-page__filters {
-  width: 308px;
-  max-width: 100%;
-  background: var(--white);
-  border-radius: 4px;
+  flex: 0 0 308px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 30px;
+  border-radius: 4px;
+  background: var(--white);
 }
 
 .listing-page__filters-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .listing-page__filters-header h2 {
   font-size: 16px;
   font-weight: 700;
+  line-height: 24px;
   color: var(--dark-gray-2);
 }
 
 .listing-page__filters-header button {
   border: 0;
   background: none;
-  color: var(--primary);
   font-size: 14px;
+  color: var(--primary);
 }
 
 .listing-page__filters hr {
   border: 0;
   height: 1px;
   background: var(--light-gray-2);
-  margin: 20px 0;
 }
 
 .listing-page__results {
@@ -75,21 +115,31 @@
   min-width: 0;
 }
 
-.listing-page__results .section__title {
-  font-size: 16px;
-  font-weight: 400;
+/* o total já aparece no topo, como no Figma; o título fica só para leitores de tela */
+.listing-page__results .section__header {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
 }
 
 @media (max-width: 900px) {
-  .listing-page {
+  .listing-page__top {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .listing-page__sidebar,
-  .listing-page__filters,
-  .listing-page__order select {
+  .listing-page__order {
     width: 100%;
+  }
+
+  .listing-page__body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .listing-page__filters {
     flex-basis: auto;
   }
 }

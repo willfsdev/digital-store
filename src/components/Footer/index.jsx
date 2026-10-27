@@ -53,7 +53,7 @@ const Footer = () => {
             <Logo variant="white" />
             <p className="footer__description">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua.
+              tempor incididunt ut labore et dolore.
             </p>
             <div className="footer__socials">
               {socials.map((social) => (
@@ -75,6 +75,7 @@ const Footer = () => {
               key={column.title}
               title={column.title}
               informations={column.informations}
+              compact={column.title === 'Contato'}
             />
           ))}
         </div>

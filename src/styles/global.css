@@ -1,4 +1,4 @@
-/* 2 - Cores (paleta definida na documentação) */
+/* 2 - Cores (paleta definida na documentação e no Figma) */
 :root {
   --primary: #c92071;
   --secondary: #b5b6f2;
@@ -15,7 +15,13 @@
   --light-gray-3: #f5f5f5;
   --white: #ffffff;
 
+  /* cores extras usadas no Figma */
+  --page-bg: #f9f8fe;
+  --badge: #e7ff86;
+  --collection-bg: #d8e3f2;
+
   --container: 1440px;
+  --card-shadow: 6px 16px 30px rgba(105, 98, 98, 0.05);
 }
 
 *,
@@ -30,7 +36,8 @@ html,
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: var(--dark-gray-2);
-  background: var(--light-gray-3);
+  background: var(--page-bg);
+  letter-spacing: 0.75px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -46,14 +53,62 @@ img {
 
 button {
   font-family: inherit;
+  letter-spacing: inherit;
   cursor: pointer;
 }
 
+/* largura útil de 1240px com 100px de margem, como no Figma (1440px) */
 .container {
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 100px;
+}
+
+/* botões padrão do design */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  transition: filter 0.2s, background 0.2s;
+}
+
+.btn:hover {
+  filter: brightness(0.92);
+}
+
+.btn--primary {
+  background: var(--primary);
+  color: var(--light-gray-3);
+}
+
+.btn--secondary {
+  background: var(--white);
+  color: var(--primary);
+}
+
+.btn--warning {
+  background: var(--warning);
+  color: var(--light-gray-3);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 15px;
+  border-radius: 29px;
+  background: var(--badge);
+  color: var(--dark-gray-2);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
 }
 
 @media (max-width: 1024px) {

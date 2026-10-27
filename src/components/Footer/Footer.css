@@ -1,26 +1,28 @@
+/* Rodapé do Figma: 454px de altura, colunas em 100 / 612 / 849 / 1113 px */
 .footer {
   background: var(--dark-gray);
   color: var(--white);
-  padding: 70px 0 30px;
+  padding: 72px 0 22px;
 }
 
 .footer__content {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-  gap: 60px;
+  grid-template-columns: 512px 237px 264px 1fr;
+  min-height: 290px;
 }
 
 .footer__description {
-  margin: 28px 0;
+  margin: 35px 0 40px;
+  max-width: 307px;
   font-size: 16px;
   line-height: 26px;
-  color: var(--white);
-  max-width: 330px;
+  letter-spacing: 0;
 }
 
 .footer__socials {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 35px;
 }
 
 .footer__socials a {
@@ -35,17 +37,25 @@
 .footer__divider {
   border: 0;
   height: 1px;
-  background: var(--dark-gray-3);
-  margin: 50px 0 28px;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 22px 0 24px;
 }
 
 .footer__copyright {
   text-align: center;
-  font-size: 14px;
-  color: var(--white);
+  font-size: 13px;
+  line-height: 24px;
+  letter-spacing: 0;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+  .footer__content {
+    grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 900px) {
   .footer__content {
     grid-template-columns: 1fr 1fr;
     gap: 40px;

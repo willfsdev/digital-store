@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
-import { formatPrice } from '../../data/products';
+import { formatPrice, discountPercent } from '../../data/products';
 import './ProductCard.css';
 
 // 4.2 - Cartão de produto: imagem, nome, preço e preço com desconto
 const ProductCard = ({ id, image, name, category, price, priceDiscount }) => {
   const hasDiscount = priceDiscount !== undefined && priceDiscount !== null;
-  const discountPercent = hasDiscount ? Math.round((1 - priceDiscount / price) * 100) : 0;
 
   return (
     <Link to={id ? `/produto/${id}` : '#'} className="product-card">
       <div className="product-card__image">
-        {hasDiscount && <span className="product-card__badge">{discountPercent}% OFF</span>}
+        {hasDiscount && (
+          <span className="badge product-card__badge">
+            {discountPercent(price, priceDiscount)}% OFF
+          </span>
+        )}
         <img src={image} alt={name} />
       </div>
 

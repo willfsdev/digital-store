@@ -21,8 +21,17 @@ const ProductViewPage = () => {
     <Layout>
       <div className="container product-view">
         <nav className="product-view__breadcrumb" aria-label="Navegação">
-          <Link to="/">Home</Link> / <Link to="/produtos">Produtos</Link> /{' '}
-          <span>{product.category}</span> / <strong>{product.name}</strong>
+          <Link to="/" className="product-view__breadcrumb-home">
+            Home
+          </Link>
+          <span>/</span>
+          <Link to="/produtos">Produtos</Link>
+          <span>/</span>
+          <span>{product.category}</span>
+          <span>/</span>
+          <span>{product.brand}</span>
+          <span>/</span>
+          <span>{product.name}</span>
         </nav>
 
         <div className="product-view__main">
@@ -41,7 +50,7 @@ const ProductViewPage = () => {
           <div className="product-view__buybox">
             <BuyBox
               name={product.name}
-              reference={`${product.category} | ${product.brand} | REF:38416711`}
+              reference={`${product.style} | ${product.brand} | REF:38416711`}
               stars={4.7}
               rating={90}
               price={product.price}
@@ -56,6 +65,7 @@ const ProductViewPage = () => {
                   shape="square"
                   radius="4px"
                   type="text"
+                  defaultSelected="41"
                 />
               </div>
               <div>
@@ -64,6 +74,7 @@ const ProductViewPage = () => {
                   options={['#6FEEFF', '#FF6969', '#5E5E5E', '#6D70B7']}
                   shape="circle"
                   type="color"
+                  defaultSelected="#FF6969"
                 />
               </div>
             </BuyBox>
@@ -81,6 +92,7 @@ const ProductViewPage = () => {
           title="Produtos recomendados"
           titleAlign="left"
           link={{ text: 'Ver todos', href: '/products' }}
+          className="product-view__related"
         >
           <ProductListing products={recommended} />
         </Section>
